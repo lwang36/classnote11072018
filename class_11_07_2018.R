@@ -1,15 +1,33 @@
 # If gene ids are in form of Ensembl ids, then one can use "BiomaRt" library.
 # Gene set enrichment
-
+The biomaRt package, provides an interface to a growing collection of databases implementing the BioMart software suite.
+The package enables retrieval of large amounts of data in a uniform way without the need to know the underlying database schemas 
+or write complex SQL queries.
 library("biomaRt") # load library biomaRt
 
 # using homo sapiens annotation file by function useMart
+The useMart() function can now be used to connect to a specified BioMart database
 ensembl <- useMart("ensembl", dataset="hsapiens_gene_ensembl")
 
 my_chr <- c(1:22, 'M','X','Y')
 my_chr
 
 #Function (getBM) to get features form biomaRt library
+The getBM() function has three arguments that need to be introduced: filters, attributes and values.
+Filters define a restriction on the query
+
+attributes: is a vector of attributes that one wants to retrieve (= the output of the query).
+Attributes define the values we are interested in to retrieve
+
+Filters define a restriction on the query
+filters: is a vector of filters that one wil use as input to the query.
+
+values: a vector of values for the filters. In case multple filters are in use,
+the values argument requires a list of values where each position in the list corresponds to the position of the filters
+in the filters argument.
+
+mart: is an object of class Mart, which is created by the useMart() function
+  
 my_ensembl_gene <- getBM(attributes='ensembl_gene_id', filters='chromosome_name',
 values=my_chr, mart=ensembl)
 
